@@ -4,21 +4,24 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon ./build/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "setup_app": "brew services start mongodb-community@6.0 | redis-server",
+    "setup": "brew services start mongodb-community@6.0 | redis-server",
     "dev": "nodemon -r tsconfig-paths/register src/app.ts | ./node_modules/.bin/bunyan",
-    "stop_app": "redis-cli shutdown | brew services stop mongodb-community@6.0",
+    "stop": "redis-cli shutdown | brew services stop mongodb-community@6.0",
     "lint:check": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint 'src/**/*.ts' --fix",
     "prettier:check": "prettier --check 'src/**/*.{ts,json}'",
-    "prettier:fix": "prettier --write 'src/**/*.{ts,json}'"
-
+    "prettier:fix": "prettier --write 'src/**/*.{ts,json}'",
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@bull-board/express": "^5.2.1",
     "@socket.io/redis-adapter": "^8.2.1",
+    "bull": "^4.10.4",
     "bunyan": "^1.8.15",
     "compression": "^1.7.4",
     "cookie-session": "^2.0.0",
@@ -32,7 +35,8 @@
     "mongoose": "^7.2.0",
     "redis": "^4.6.7",
     "socket.io": "^4.6.2",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "typescript-transform-paths": "^3.4.6"
   },
   "devDependencies": {
     "@types/bunyan": "^1.8.8",
@@ -46,6 +50,7 @@
     "eslint-config-prettier": "^8.8.0",
     "prettier": "^2.8.8",
     "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.6",
     "tsconfig-paths": "^4.2.0"
   }
 }

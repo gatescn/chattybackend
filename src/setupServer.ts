@@ -5,15 +5,15 @@ import helmet from 'helmet';
 import hpp from 'hpp';
 import cookieSession from 'cookie-session';
 import HTTP_STATUS from 'http-status-codes';
-import { config } from './config';
+import { config } from '@root/config';
 import 'express-async-errors';
 import compression from 'compression'; //helps compress request size
 import { Server } from 'socket.io';
 import { createClient } from 'redis';
 import { createAdapter } from '@socket.io/redis-adapter';
-import applicationRoutes from './routes';
-import { CustomError, IErrorResponse } from './shared/globals/helpers/error-handler';
+import applicationRoutes from '@root/routes';
 import Logger from 'bunyan';
+import { CustomError, IErrorResponse } from '@global/helpers/error-handler';
 
 const SERVER_PORT = 5000;
 //react by defaut listens on port 3000 so we will use 5000 for the server and let the client use port 3000.
@@ -136,5 +136,7 @@ export class ChattyServer {
       // use log library on production.. more light weight..
     });
   }
-  private socketIOConnections(io: Server): void {}
+  private socketIOConnections(io: Server): void {
+    log.info('socketio');
+  }
 }
